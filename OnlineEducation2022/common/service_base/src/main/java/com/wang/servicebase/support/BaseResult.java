@@ -17,4 +17,10 @@ public class BaseResult {
         baseResult.setMessage("成功");
         return baseResult;
     }
+    public static BaseResult exception(Exception e){
+        BaseResult baseResult = new BaseResult();
+        baseResult.setCode("5001");
+        baseResult.setMessage(e.getMessage());
+        return baseResult;
+    }
 }
