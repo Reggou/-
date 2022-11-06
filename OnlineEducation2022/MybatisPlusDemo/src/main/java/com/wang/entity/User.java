@@ -1,8 +1,12 @@
 package com.wang.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author wzzmm
@@ -16,4 +20,8 @@ public class User {
     private String name;
     private Integer age;
     private String email;
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 }
