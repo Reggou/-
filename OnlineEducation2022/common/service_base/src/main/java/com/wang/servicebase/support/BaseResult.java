@@ -10,6 +10,7 @@ import lombok.Data;
 public class BaseResult {
     private String code;
     private String message;
+    private Object data;
 
     public static BaseResult success(){
         BaseResult baseResult = new BaseResult();
@@ -22,5 +23,10 @@ public class BaseResult {
         baseResult.setCode("5001");
         baseResult.setMessage(e.getMessage());
         return baseResult;
+    }
+
+    public BaseResult setData(Object data){
+        this.data = data;
+        return this;
     }
 }
