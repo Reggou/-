@@ -2,11 +2,13 @@ package com.wang.support;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.wang.controller.EasyExcelController;
 import com.wang.entities.ExcelEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 /**
  * 创建读取excel监听器
  *
@@ -14,19 +16,35 @@ import java.util.Map;
  * @since 2022/11/10 20:57
  */
 public class ExcelListener extends AnalysisEventListener<ExcelEntity> {
+
+    public EasyExcelController easyExcelController;
+
+    /**
+     * easyExcel监听器无法注入到spring容器中。所以需要自己通过构造器实现注入。
+     */
+    public ExcelListener(EasyExcelController easyExcelController) {
+        this.easyExcelController = easyExcelController;
+    }
+
+    public ExcelListener() {
+    }
+
     //创建list集合封装最终的数据
     List<ExcelEntity> list = new ArrayList<>();
+
     //一行一行去读取excel内容
     @Override
     public void invoke(ExcelEntity excelEntity, AnalysisContext analysisContext) {
-        System.out.println("***"+excelEntity);
+        System.out.println("***" + excelEntity);
         list.add(excelEntity);
     }
+
     //读取excel表头信息
     @Override
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
-        System.out.println("表头信息："+headMap);
+        System.out.println("表头信息：" + headMap);
     }
+
     //读取完成后执行
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
